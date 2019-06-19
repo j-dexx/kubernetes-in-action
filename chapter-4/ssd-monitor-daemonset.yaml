@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: DaemonSet
+metadata:
+  name: ssd-monitor
+spec:
+  selector:
+    matchLabels:
+      app: ssd-monitor
+  template:
+    metadata:
+      labels:
+        app: ssd-monitor
+    spec:
+      nodeSelector:
+        disk: ssd
+      containers:
+        - name: main
+          image: luksa/ssd-monitor
+# DaemonSets run one per node that matches the node selector, if we label a node so it matches a pod will be run
+# kubectl label node minikube disk=ssd - matches so pod created
+# kubectl label node minikube disk=hdd --overwrite - does not match so pod deleted
