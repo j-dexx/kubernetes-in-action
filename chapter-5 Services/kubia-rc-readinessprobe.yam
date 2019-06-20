@@ -1,0 +1,18 @@
+# Note this isn't valid
+apiVersion: v1
+kind: ReplicationController
+...
+spec:
+  ...
+  template:
+    ...
+    spec:
+      containers:
+      - name: kubia
+        image: luksa/kubia
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /var/ready
+        ...
